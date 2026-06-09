@@ -1,0 +1,51 @@
+### Variables
+@baseUrl = http://localhost:5000
+@contentType = application/json
+
+### 1. Obtener todas las tareas
+GET {{baseUrl}}/api/taskitems
+
+### 2. Crear una nueva tarea
+POST {{baseUrl}}/api/taskitems
+Content-Type: {{contentType}}
+
+{
+  "title": "Implementar autenticación",
+  "description": "Agregar JWT authentication a la API"
+}
+
+### 3. Crear otra tarea
+POST {{baseUrl}}/api/taskitems
+Content-Type: {{contentType}}
+
+{
+  "title": "Crear base de datos",
+  "description": "Configurar MySQL y migrar datos"
+}
+
+### 4. Obtener una tarea específica (ID: 1)
+GET {{baseUrl}}/api/taskitems/1
+
+### 5. Actualizar una tarea (ID: 1)
+PUT {{baseUrl}}/api/taskitems/1
+Content-Type: {{contentType}}
+
+{
+  "title": "Implementar autenticación JWT",
+  "description": "Agregar JWT authentication y refresh tokens",
+  "isCompleted": true
+}
+
+### 6. Marcar tarea como completada (ID: 2)
+PUT {{baseUrl}}/api/taskitems/2
+Content-Type: {{contentType}}
+
+{
+  "isCompleted": true
+}
+
+### 7. Eliminar una tarea (ID: 1)
+DELETE {{baseUrl}}/api/taskitems/1
+
+### 8. Obtener todas las tareas después de eliminar
+GET {{baseUrl}}/api/taskitems

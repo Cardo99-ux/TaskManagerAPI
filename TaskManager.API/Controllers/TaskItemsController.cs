@@ -16,9 +16,9 @@ public class TaskItemsController : ControllerBase
         _context = context;
     }
 
-    /// <summary>
+   
     /// Obtiene todas las tareas
-    /// </summary>
+   
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TaskItem>>> GetTasks()
     {
@@ -26,9 +26,8 @@ public class TaskItemsController : ControllerBase
         return Ok(tasks);
     }
 
-    /// <summary>
     /// Obtiene una tarea por ID
-    /// </summary>
+   
     [HttpGet("{id}")]
     public async Task<ActionResult<TaskItem>> GetTask(int id)
     {
@@ -42,9 +41,9 @@ public class TaskItemsController : ControllerBase
         return Ok(task);
     }
 
-    /// <summary>
+    
     /// Crea una nueva tarea
-    /// </summary>
+    
     [HttpPost]
     public async Task<ActionResult<TaskItem>> CreateTask([FromBody] CreateTaskDto dto)
     {
@@ -66,9 +65,9 @@ public class TaskItemsController : ControllerBase
         return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
     }
 
-    /// <summary>
+   
     /// Actualiza una tarea existente
-    /// </summary>
+   
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTask(int id, [FromBody] UpdateTaskDto dto)
     {
@@ -94,9 +93,9 @@ public class TaskItemsController : ControllerBase
         return Ok(new { message = "Tarea actualizada correctamente", task });
     }
 
-    /// <summary>
+  
     /// Elimina una tarea
-    /// </summary>
+  
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTask(int id)
     {

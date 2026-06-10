@@ -11,22 +11,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configuración de la conexión a MySQL
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseSqlite("Data Source=taskmanager.db"));
+
+
 
 var app = builder.Build();
 
-// 2. Configurar el pipeline de solicitudes HTTP.
 
-// Forzamos a que Swagger se ejecute siempre para pruebas locales
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     // Ajustamos la ruta del JSON para el generador estándar de Swagger
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "TaskManager API V1");
     
-    // Esto hace que Swagger sea la página de inicio (http://localhost:5283/)
+    // Swagger como la página de inicio:
     c.RoutePrefix = string.Empty; 
 });
 
@@ -36,5 +35,11 @@ app.UseSwaggerUI(c =>
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    dbContext.Database.EnsureCreated(); // -- Crea el archivo .db y las tablas si no existen
+}
 
 app.Run();
